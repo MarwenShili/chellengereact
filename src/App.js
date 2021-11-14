@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import PersoneInput from './Components/personeInput/PersoneInput';
+import { useState } from 'react';
 
-function App() {
+
+const  App =() => {
+
+  const [enteredPersone, setEnteredPersone] = useState([   { name: 'Do all exercises!', age: 25 },]);
+
+
+const personeHandler = (dataEntered) => {
+  setEnteredPersone(prevPersone => {
+    const allPersone =[...prevPersone];
+    allPersone.unshift({name:dataEntered.name , age: dataEntered.age});
+
+  });
+
+}
+console.log(enteredPersone);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h2>Challenge</h2>
+     <PersoneInput addPersone={personeHandler}></PersoneInput>
     </div>
   );
 }
