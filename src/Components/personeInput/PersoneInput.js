@@ -1,5 +1,11 @@
-import './PersoneInput.css';
+import './PersoneInput.module.css';
 import { useState } from 'react';
+import Error from '../UI/error/Error';
+import Button from '../UI/Button/Button';
+import Card from '../UI/Card/Card';
+import classes from './PersoneInput.module.css';
+
+
 
 const PersoneInput = (props) => {
 
@@ -20,11 +26,20 @@ const PersoneInput = (props) => {
         e.preventDefault();
 
         if (enteredName.trim().length == '' && enteredAge.trim().length == ''  ) {
-            setError('Name and age not found');
+            setError({
+                title: 'Invalid Name and Age ',
+                message: 'Please enter a valid name and age (non-empty values).',
+              });
         } else if (enteredName.trim().length == ''  ) {
-            setError("name not found");
+            setError({
+                title: 'Invalid Name',
+                message: 'Please enter a valid name (non-empty values).',
+              });
         } else if (enteredAge.trim().length =='' || enteredAge <0  ){
-            setError('Age not found');
+            setError({
+                title: 'Invalid Age',
+                message: 'Please enter a valid  age (non-empty values).',
+              });
         }
         else if (enteredName.trim().length > 0 && enteredAge.trim().length > 0) {
             setError('')
@@ -48,23 +63,30 @@ const PersoneInput = (props) => {
     //   }
     
     // }
-
+    const errorHandler = () => {
+        setError(null);
+      };
+    
     return (
         <div>
+             {error && (
+        <Error
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
+      <Card className={classes.input}>
             <form onSubmit={formSubmitHandler}>
                 <label>Name</label> <br />
                 <input value={enteredName} type="text" onChange={inputNameHandler} ></input><br />
                 <label>Age</label><br />
                 <input value={enteredAge} type="number" onChange={inputAgeHandler}></input><br />
-                <button type="submit">ADD</button>
+                <Button type="submit" >ADD</Button>
                 <br />
-                {error}
-
                 
             </form>
-
-            {/* <Error /> */}
-
+        </Card>
         </div>
     );
 };
