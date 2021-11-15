@@ -28,7 +28,12 @@ const  App =() => {
 
 
 
-
+const deleteItemhandler = goalID => {
+  setEnteredPersone(prevgoals => {
+    const updatedData =[...prevgoals].filter(goal => goal.id !== goalID);
+    return updatedData ;
+  });
+}
 
 console.log(enteredPersone);
 
@@ -37,7 +42,7 @@ console.log(enteredPersone);
     <div className="App">
      <h2>Challenge</h2>
      <PersoneInput addPersone={personeHandler}></PersoneInput>
-     <PersoneList items = {enteredPersone} />
+     <PersoneList items = {enteredPersone} onDeleteItem={deleteItemhandler}/>
     {/* {content} */}
 
     </div>
