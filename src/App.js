@@ -1,21 +1,35 @@
 import './App.css';
 import PersoneInput from './Components/personeInput/PersoneInput';
 import { useState } from 'react';
+import PersoneList from './Components/PersoneList/PersoneList';
 
 
 const  App =() => {
 
-  const [enteredPersone, setEnteredPersone] = useState([   { name: 'Do all exercises!', age: 25 },]);
+  const [enteredPersone, setEnteredPersone] = useState([  
+     { name: 'ghassen', age: 24 , id : Math.random().toString()},
+     { name: 'Marwen', age: 24 , id : Math.random().toString()},
+     { name: 'Fares', age: 23 , id : Math.random().toString()}
+    ]);
 
 
-const personeHandler = (dataEntered) => {
-  setEnteredPersone(prevPersone => {
-    const allPersone =[...prevPersone];
-    allPersone.unshift({name:dataEntered.name , age: dataEntered.age});
+ const personeHandler = (enteredName, enteredAge) => {
+   setEnteredPersone( (prevPersone) => {
+     return [...prevPersone, {name:enteredName , age: enteredAge , id : Math.random().toString()}]
+   });
+ }
 
-  });
+ 
+//  let content = (<p>Error</p>)
+ 
+//  if (enteredPersone.length > 3){
+//    content = (<PersoneList items = {enteredPersone} />) ;
+//  } 
 
-}
+
+
+
+
 console.log(enteredPersone);
 
 
@@ -23,6 +37,9 @@ console.log(enteredPersone);
     <div className="App">
      <h2>Challenge</h2>
      <PersoneInput addPersone={personeHandler}></PersoneInput>
+     <PersoneList items = {enteredPersone} />
+    {/* {content} */}
+
     </div>
   );
 }
