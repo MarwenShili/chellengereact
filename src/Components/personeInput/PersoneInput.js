@@ -1,5 +1,5 @@
 import './PersoneInput.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Error from '../UI/error/Error';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
@@ -9,21 +9,26 @@ import classes from './PersoneInput.module.css';
 
 const PersoneInput = (props) => {
 
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredAge, setEnteredAge] = useState('');
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
+
+    // const [enteredName, setEnteredName] = useState('');
+    // const [enteredAge, setEnteredAge] = useState('');
     const [error, setError] = useState('');
 
 
-    const inputNameHandler = (e) => {
-        setEnteredName(e.target.value);
-    };
+    // const inputNameHandler = (e) => {
+    //     setEnteredName(e.target.value);
+    // };
 
-    const inputAgeHandler = (e) => {
-        setEnteredAge(e.target.value);
-    };
+    // const inputAgeHandler = (e) => {
+    //     setEnteredAge(e.target.value);
+    // };
 
     const formSubmitHandler = (e) => {
         e.preventDefault();
+        const enteredName = nameInputRef.current.value ;
+        const enteredAge = ageInputRef.current.value ;
 
         if (enteredName.trim().length == '' && enteredAge.trim().length == ''  ) {
             setError({
@@ -79,9 +84,9 @@ const PersoneInput = (props) => {
       <Card className={classes.input}>
             <form onSubmit={formSubmitHandler}>
                 <label>Name</label> <br />
-                <input value={enteredName} type="text" onChange={inputNameHandler} ></input><br />
+                <input /*value={enteredName}*/ type="text"  ref={nameInputRef} /*onChange={inputNameHandler} */></input><br />
                 <label>Age</label><br />
-                <input value={enteredAge} type="number" onChange={inputAgeHandler}></input><br />
+                <input /*value={enteredAge}*/ type="number" ref={ageInputRef}/*onChange={inputAgeHandler}*/></input><br />
                 <Button type="submit" >ADD</Button>
                 <br />
                 
